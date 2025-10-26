@@ -1,0 +1,99 @@
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { removeUser } from "../utils/userSlice";
+import { removeFeed } from "../utils/feedSlice";
+import { removeConnection } from "../utils/connectionSlice";
+import { clearRequests } from "../utils/requestSlice";
+//import api from "../utils/apiAxios";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+
+const Navbar = () => {
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(BASE_URL+"/logout",{},{withCredentials:true});
+      dispatch(removeUser());
+      dispatch(removeFeed());
+      dispatch(removeConnection());
+      dispatch(clearRequests());
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="navbar bg-black/30 backdrop-blur-md sticky top-0 z-10">
+      <div className="flex-1">
+        <Link to="/" className="btn btn-ghost text-xl ">
+          <img src="/icon.svg" alt="icon" />
+          <span className="hidden md:inline text-white">DevTinder</span>
+        </Link>
+      </div>
+      {user ? (
+        <div className="flex-none gap-3">
+          <div className="dropdown dropdown-end mr-4">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost flex items-center gap-2 relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-white/30 before:animate-pulse hover:before:border-white/50 transition-all"
+            >
+              <p className="text-xl">Welcome, {user.firstName} </p>
+              <div className="avatar">
+                <div className="w-10 rounded-full">
+                  <img alt="user photo" src={user.photoUrl} />
+                </div>
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-md dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <Link to="profile" className="justify-between">
+                  Profile <span className="badge">🙎🏻‍♂️</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="connections">
+                  Conncections <span className="badge">💗</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="requests">
+                  Requests <span className="badge">👁️</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="premuim">
+                  Premium <span className="badge">💎</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={handleLogout}
+                  className="text-red-400 hover:text-red-300"
+                >
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ) : (
+        <div className="flex gap-4 mr-10">
+          <Link to={"/signup"}>
+            <button className="btn px-5 btn-primary">Sign Up</button>
+          </Link>
+          <Link to={"/login"}>
+            <button className="btn px-5 btn-outline">Log In</button>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Navbar;

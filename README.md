@@ -14,7 +14,7 @@
 
 ## 🏗️ Installation & Setup
 
-1. Clone the repository:
+1. Clone the repository:  https://github.com/Amazad3245/DevTinder-Frontend
 
 ```sh
 git clone 

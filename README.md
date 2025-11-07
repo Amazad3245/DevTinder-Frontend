@@ -8,16 +8,16 @@
 
 - **Frontend:** React.js, Vite, Redux Toolkit, Tailwind CSS
 - **State Management:** Redux Toolkit
-- **Backend:** [DevTinder backend]
+- **Backend:** [DevTinder backend] https://github.com/Amazad3245/DevTinde-Backend
 - **Authentication:** JWT
 - **Database:** MongoDB (via backend)
 
 ## 🏗️ Installation & Setup
 
-1. Clone the repository:  https://github.com/Amazad3245/DevTinder-Frontend
+1. Clone the repository:  
 
 ```sh
-git clone 
+git clone https://github.com/Amazad3245/DevTinder-Frontend
 ```
 
 2. Navigate to the project directory:
